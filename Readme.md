@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Anton Ashurek](https://up.htmlacademy.ru/javascript/24/user/1810375).
-* Наставник: `Неизвестно`.
+* Наставник: [Павел Краснов](https://htmlacademy.ru/profile/id1242267)..
 
 ---
 
