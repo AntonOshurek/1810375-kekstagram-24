@@ -6,4 +6,9 @@ function testingString(max, string) {
 }
 testingString(maxStringValue, testString);
 
+function randomint(randomMinValue, randomMaxValue) {
+  randomMinValue >= randomMaxValue ? randomMinValue = randomMaxValue - 1 : false;
 
+  return Math.floor(Math.random() * (randomMaxValue - randomMinValue + 1)) + randomMinValue;
+}
+randomint(40, 40);
