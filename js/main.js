@@ -9,6 +9,8 @@ testingString(maxStringValue, testString);
 function randomint(randomMinValue, randomMaxValue) {
   randomMinValue >= randomMaxValue ? randomMinValue = randomMaxValue - 1 : false;
 
-  return Math.floor(Math.random() * (randomMaxValue - randomMinValue + 1)) + randomMinValue;
+  if(((Math.sign(randomMinValue) !== -1) && (Math.sign(randomMinValue) !== -1))) {
+    return Math.floor(Math.random() * (randomMaxValue - randomMinValue + 1)) + randomMinValue;
+  }
 }
 randomint(40, 40);
