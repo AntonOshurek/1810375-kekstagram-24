@@ -6,11 +6,15 @@ function testString(max, string) {
 }
 testString(MAXSTRINGVALUE, TESTSTRING);
 
-function getRandomInt(randomMinValue, randomMaxValue) {
-  randomMinValue >= randomMaxValue ? randomMinValue = randomMaxValue - 1 : false;
+function getRandomInt(minValue, maxValue) {
+  if (minValue >= maxValue) {
+    return new Error('minValue of getRandomInt function') ;
+  }
 
-  if(((Math.sign(randomMinValue) !== -1) && (Math.sign(randomMinValue) !== -1))) {
-    return Math.floor(Math.random() * (randomMaxValue - randomMinValue + 1)) + randomMinValue;
+  if((Math.sign(minValue) === -1) || (Math.sign(maxValue) === -1) || (isNaN(minValue)) || (isNaN(maxValue)) || (typeof(minValue) === 'string') || (typeof(maxValue) === 'string')) {
+    return new Error('minValue or maxValue they have the wrong value') ;
+  } else {
+    return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
   }
 }
-console.log(getRandomInt(-50, 40));
+(getRandomInt(40, 41));
