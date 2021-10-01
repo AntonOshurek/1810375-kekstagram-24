@@ -1,10 +1,10 @@
-const MAXSTRINGVALUE = 140;
-const TESTSTRING = 'test string for my code';
+const MAX_STRING_VALUE = 140;
+const TEST_STRING_LENGTH = 'test string for my code';
 
 function testString(max, string) {
   return string.length <= max;
 }
-testString(MAXSTRINGVALUE, TESTSTRING);
+testString(MAX_STRING_VALUE, TEST_STRING_LENGTH);
 
 function getRandomInt(minValue, maxValue) {
   if (minValue >= maxValue) {
