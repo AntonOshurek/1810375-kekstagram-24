@@ -1,12 +1,10 @@
 const MAX_STRING_VALUE = 140;
 const TEST_STRING_LENGTH = 'test string for my code';
 
-function testString(max, string) {
-  return string.length <= max;
-}
+const testString = (max, string) => string.length <= max;
 testString(MAX_STRING_VALUE, TEST_STRING_LENGTH);
 
-function getRandomInt(minValue, maxValue) {
+const getRandomInt = (minValue, maxValue) => {
   if (minValue >= maxValue) {
     return new Error('minValue of getRandomInt function') ;
   }
@@ -16,5 +14,6 @@ function getRandomInt(minValue, maxValue) {
   } else {
     return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
   }
-}
-(getRandomInt(40, 41));
+};
+
+console.log(getRandomInt(40, 41));
