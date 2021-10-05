@@ -81,5 +81,3 @@ for (let it = 0; it < 25; it++) {
   };
   POST_LIST.push(USER_POST);
 }
-
-console.log(POST_LIST);
