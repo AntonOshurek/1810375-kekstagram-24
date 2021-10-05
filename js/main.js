@@ -54,32 +54,32 @@ const DESCRIPTION = [
   'libero, non venenatis sapien.',
 ];
 
-const postsList = [];
+const POST_LIST = [];
 
 const getComments = (user) => {
-  const userComments = [];
+  const USER_COMENTS = [];
   for(let it = 0; it < getRandomInt(1, 8); it++) {
-    const userComment = {
+    const USER_COMMENT = {
       id: `user${user}${getUniqueId()}`,
       avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
       message: USER_COMENTS_TEXT[getRandomInt(0, USER_COMENTS_TEXT.length - 1)],
       name: USER_NAMES[getRandomInt(0, USER_NAMES.length - 1)],
     };
 
-    userComments.push(userComment);
+    USER_COMENTS.push(USER_COMMENT);
   }
-  return userComments;
+  return USER_COMENTS;
 };
 
 for (let it = 0; it < 25; it++) {
-  const userpost = {
+  const USER_POST = {
     id: it + 1,
     url: `photos/${it+1}.jpg`,
     description: `${DESCRIPTION[getRandomInt(0, DESCRIPTION.length)]}`,
     likes: getRandomInt(15, 200),
     comments: getComments(it),
   };
-  postsList.push(userpost);
+  POST_LIST.push(USER_POST);
 }
 
-console.log(postsList);
+console.log(POST_LIST);
