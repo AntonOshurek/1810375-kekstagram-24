@@ -16,7 +16,7 @@ getRandomInt(40, 45);
 
 const getUniqueId = () => (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
 
-const userComentsText = [
+const USER_COMENTS_TEXT = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
@@ -26,7 +26,7 @@ const userComentsText = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const usersNames = ['Abraham', 'Addison', 'Adrian', 'Albert', 'Alec', 'Alfred', 'Alvin', 'Andrew',
+const USER_NAMES = ['Abraham', 'Addison', 'Adrian', 'Albert', 'Alec', 'Alfred', 'Alvin', 'Andrew',
   'Andy', 'Archibald', 'Archie', 'Arlo', 'Arthur', 'Arthur', 'Austen', 'Barnabe', 'Bartholomew', 'Bertram',
   'Bramwell', 'Byam', 'Cardew', 'Chad', 'Chance', 'Colin', 'Coloman', 'Curtis', 'Cuthbert', 'Daniel', 'Darryl',
   'David', 'Dickon', 'Donald', 'Dougie', 'Douglas', 'Earl', 'Ebenezer', 'Edgar', 'Edmund', 'Edward', 'Edwin', 'Elliot',
@@ -40,7 +40,7 @@ const usersNames = ['Abraham', 'Addison', 'Adrian', 'Albert', 'Alec', 'Alfred', 
   'Wilfred', 'William', 'Winston', 'Zadoc',
 ];
 
-const description = [
+const DESCRIPTION = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   'Integer vel dapibus leo, ut suscipit lectus. Maecenas quis dictum ',
   'erat. Fusce accumsan est nec enim imperdiet, nec aliquam erat bibendum.',
@@ -62,8 +62,8 @@ const getComments = (user) => {
     const userComment = {
       id: `user${user}${getUniqueId()}`,
       avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
-      message: userComentsText[getRandomInt(0, userComentsText.length - 1)],
-      name: usersNames[getRandomInt(0, usersNames.length - 1)],
+      message: USER_COMENTS_TEXT[getRandomInt(0, USER_COMENTS_TEXT.length - 1)],
+      name: USER_NAMES[getRandomInt(0, USER_NAMES.length - 1)],
     };
 
     userComments.push(userComment);
@@ -75,7 +75,7 @@ for (let i = 0; i < 25; i++) {
   const userpost = {
     id: i + 1,
     url: `photos/${i+1}.jpg`,
-    description: `${description[getRandomInt(0, description.length)]}`,
+    description: `${DESCRIPTION[getRandomInt(0, DESCRIPTION.length)]}`,
     likes: getRandomInt(15, 200),
     comments: getComments(i),
   };
