@@ -58,7 +58,7 @@ const postsList = [];
 
 const getComments = (user) => {
   const userComments = [];
-  for(let i = 0; i < getRandomInt(1, 8); i++) {
+  for(let it = 0; it < getRandomInt(1, 8); it++) {
     const userComment = {
       id: `user${user}${getUniqueId()}`,
       avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
@@ -71,13 +71,13 @@ const getComments = (user) => {
   return userComments;
 };
 
-for (let i = 0; i < 25; i++) {
+for (let it = 0; it < 25; it++) {
   const userpost = {
-    id: i + 1,
-    url: `photos/${i+1}.jpg`,
+    id: it + 1,
+    url: `photos/${it+1}.jpg`,
     description: `${DESCRIPTION[getRandomInt(0, DESCRIPTION.length)]}`,
     likes: getRandomInt(15, 200),
-    comments: getComments(i),
+    comments: getComments(it),
   };
   postsList.push(userpost);
 }
