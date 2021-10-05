@@ -14,9 +14,7 @@ const getRandomInt = (minValue, maxValue) => {
 
 getRandomInt(40, 45);
 
-const getUniqueId = () => {
-  return (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
-}
+const getUniqueId = () => (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
 
 const userComentsText = [
   'Всё отлично!',
@@ -56,3 +54,32 @@ const description = [
   'libero, non venenatis sapien.',
 ];
 
+const postsList = [];
+
+const getComments = (user) => {
+  const userComments = [];
+  for(let i = 0; i < getRandomInt(1, 8); i++) {
+    const userComment = {
+      id: `user${user}${getUniqueId()}`,
+      avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+      message: userComentsText[getRandomInt(0, userComentsText.length - 1)],
+      name: usersNames[getRandomInt(0, usersNames.length - 1)],
+    };
+
+    userComments.push(userComment);
+  }
+  return userComments;
+};
+
+for (let i = 0; i < 25; i++) {
+  const userpost = {
+    id: i + 1,
+    url: `photos/${i+1}.jpg`,
+    description: `${description[getRandomInt(0, description.length)]}`,
+    likes: getRandomInt(15, 200),
+    comments: getComments(i),
+  };
+  postsList.push(userpost);
+}
+
+console.log(postsList);
