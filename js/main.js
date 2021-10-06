@@ -14,7 +14,7 @@ const getRandomInt = (minValue, maxValue) => {
 
 getRandomInt(40, 45);
 
-const getUniqueId = () => (Date.now().toString(36) + Math.random().toString(36).substr(2, 6));
+const getUniqueId = () => Date.now().toString(36) + Math.random().toString(36).substr(2, 6);
 
 const USER_COMENTS_TEXT = [
   'Всё отлично!',
@@ -81,3 +81,5 @@ for (let it = 0; it < 25; it++) {
   };
   POST_LIST.push(USER_POST);
 }
+
+console.log(POST_LIST)
