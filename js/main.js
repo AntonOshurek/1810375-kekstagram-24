@@ -12,8 +12,6 @@ const getRandomInt = (minValue, maxValue) => {
   return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
 };
 
-getRandomInt(40, 45);
-
 const getUniqueId = () => Date.now().toString(36) + Math.random().toString(36).substr(2, 6);
 
 const USER_COMENTS = [
@@ -60,7 +58,7 @@ const getComments = (user) => {
     userComents.push({
       id: `user${user}${getUniqueId()}`,
       avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
-      message: USER_COMENTS[getRandomInt(0, USER_COMENTS.length - 1)],
+      message: `${USER_COMENTS[getRandomInt(0, USER_COMENTS.length - 1)]} ${USER_COMENTS[getRandomInt(0, USER_COMENTS.length - 1)]}`,
       name: USER_NAMES[getRandomInt(0, USER_NAMES.length - 1)],
     });
   }
