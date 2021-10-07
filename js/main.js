@@ -16,7 +16,7 @@ getRandomInt(40, 45);
 
 const getUniqueId = () => Date.now().toString(36) + Math.random().toString(36).substr(2, 6);
 
-const USER_COMENTS_TEXT = [
+const USER_COMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
@@ -40,7 +40,7 @@ const USER_NAMES = ['Abraham', 'Addison', 'Adrian', 'Albert', 'Alec', 'Alfred', 
   'Wilfred', 'William', 'Winston', 'Zadoc',
 ];
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   'Integer vel dapibus leo, ut suscipit lectus. Maecenas quis dictum ',
   'erat. Fusce accumsan est nec enim imperdiet, nec aliquam erat bibendum.',
@@ -54,32 +54,36 @@ const DESCRIPTION = [
   'libero, non venenatis sapien.',
 ];
 
-const postList = [];
-
 const getComments = (user) => {
   const userComents = [];
   for(let it = 0; it < getRandomInt(1, 8); it++) {
-    const userComent = {
+    userComents.push({
       id: `user${user}${getUniqueId()}`,
       avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
-      message: USER_COMENTS_TEXT[getRandomInt(0, USER_COMENTS_TEXT.length - 1)],
+      message: USER_COMENTS[getRandomInt(0, USER_COMENTS.length - 1)],
       name: USER_NAMES[getRandomInt(0, USER_NAMES.length - 1)],
-    };
-
-    userComents.push(userComent);
+    });
   }
   return userComents;
 };
 
-for (let it = 0; it < 25; it++) {
-  const userPost = {
-    id: it + 1,
-    url: `photos/${it+1}.jpg`,
-    description: `${DESCRIPTION[getRandomInt(0, DESCRIPTION.length)]}`,
-    likes: getRandomInt(15, 200),
-    comments: getComments(it),
-  };
-  postList.push(userPost);
-}
+const NUMBER_OF_POSTS = 25;
 
-console.log(postList);
+const generatePosts = () => {
+  const postList = [];
+
+  for (let it = 0; it < NUMBER_OF_POSTS; it++) {
+    postList.push( {
+      id: it + 1,
+      url: `photos/${it+1}.jpg`,
+      description: `${DESCRIPTIONS[getRandomInt(0, DESCRIPTIONS.length)]}`,
+      likes: getRandomInt(15, 200),
+      comments: getComments(it),
+    });
+  }
+  return postList;
+};
+
+generatePosts();
+
+console.log(generatePosts());
