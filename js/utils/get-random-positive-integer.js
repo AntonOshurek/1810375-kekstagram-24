@@ -27,4 +27,4 @@ function getRandomPositiveInteger (as, bs) {
   return Math.floor(result);
 }
 
-getRandomPositiveInteger();
+getRandomPositiveInteger(25, 30);
