@@ -83,5 +83,3 @@ const generatePosts = () => {
 };
 
 generatePosts();
-
-console.log(generatePosts());
