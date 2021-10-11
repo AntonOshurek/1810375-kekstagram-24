@@ -1,3 +1,5 @@
+import {getRandomInt, getUniqueId} from './random-int.js';
+
 export default function createPosts() {
   const USER_COMENTS = [
     'Всё отлично!',
@@ -66,7 +68,5 @@ export default function createPosts() {
     }
     return postList;
   };
-
   generatePosts();
-
 }
