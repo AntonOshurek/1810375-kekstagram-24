@@ -1,9 +1,9 @@
-const MAX_STRING_VALUE = 140;
-const TEST_STRING = 'test string for my code';
+import testString from './modules/test-string.js';
 
-const testStringLength = (max, string) => string.length <= max;
+window.addEventListener('DOMContentLoaded', () => {
+  testString();
+});
 
-testStringLength(MAX_STRING_VALUE, TEST_STRING);
 
 const getRandomInt = (minValue, maxValue) => {
   if((Math.sign(minValue) === -1) || (Math.sign(maxValue) === -1) || minValue >= maxValue) {
@@ -83,3 +83,5 @@ const generatePosts = () => {
 };
 
 generatePosts();
+
+
