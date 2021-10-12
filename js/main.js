@@ -1,3 +1,3 @@
-import getPosts from './modules/getposts.js';
+import getPosts from './modules/get-posts.js';
 
 getPosts();
