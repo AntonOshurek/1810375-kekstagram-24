@@ -1,5 +1,3 @@
-import createPosts from './modules/get-posts.js';
+import getPosts from './modules/getposts.js';
 
-window.addEventListener('DOMContentLoaded', () => {
-  createPosts();
-});
+getPosts();
