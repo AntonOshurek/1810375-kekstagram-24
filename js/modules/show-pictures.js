@@ -1,21 +1,21 @@
 import getPosts from './get-posts.js';
 
-const PICTURE_BLOCK = document.querySelector('.pictures');
-const PICTURE_TEMPLATE = document.querySelector('#picture');
+const pictureBlock = document.querySelector('.pictures');
+const pictureTemplate = document.querySelector('#picture');
 const posts = getPosts();
-const FRAGMENT = new DocumentFragment();
 
 export default function showPictures() {
+  const FRAGMENT = new DocumentFragment();
 
   for(let i = 0; i < posts.length; i++) {
-    const TEMPLATE_ITEM = PICTURE_TEMPLATE.content.cloneNode(true);
+    const templateItem = pictureTemplate.content.cloneNode(true);
 
-    TEMPLATE_ITEM.querySelector('.picture__img').src = `${posts[i].url}`;
-    TEMPLATE_ITEM.querySelector('.picture__comments').textContent = `${posts[i].comments.length}`;
-    TEMPLATE_ITEM.querySelector('.picture__likes').textContent = `${posts[i].likes}`;
+    templateItem.querySelector('.picture__img').src = `${posts[i].url}`;
+    templateItem.querySelector('.picture__comments').textContent = `${posts[i].comments.length}`;
+    templateItem.querySelector('.picture__likes').textContent = `${posts[i].likes}`;
 
-    FRAGMENT.append(TEMPLATE_ITEM);
+    FRAGMENT.append(templateItem);
   }
 
-  PICTURE_BLOCK.append(FRAGMENT);
+  pictureBlock.append(FRAGMENT);
 }
