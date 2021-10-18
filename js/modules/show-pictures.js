@@ -5,7 +5,7 @@ const pictureTemplate = document.querySelector('#picture');
 const posts = getPosts();
 
 export default function showPictures() {
-  const FRAGMENT = new DocumentFragment();
+  const fragment = new DocumentFragment();
 
   for(let i = 0; i < posts.length; i++) {
     const templateItem = pictureTemplate.content.cloneNode(true);
@@ -14,8 +14,8 @@ export default function showPictures() {
     templateItem.querySelector('.picture__comments').textContent = `${posts[i].comments.length}`;
     templateItem.querySelector('.picture__likes').textContent = `${posts[i].likes}`;
 
-    FRAGMENT.append(templateItem);
+    fragment.append(templateItem);
   }
 
-  pictureBlock.append(FRAGMENT);
+  pictureBlock.append(fragment);
 }
