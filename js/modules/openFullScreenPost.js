@@ -1,14 +1,12 @@
 export default function openFullScreenPost(posts) {
   const picturesBlock = document.querySelector('.pictures');
-  //const pictureElem = document.querySelectorAll('.picture');
   const bigPicture = document.querySelector('.big-picture');
   const body = document.querySelector('body');
   const closeBtn = document.querySelector('.big-picture__cancel');
 
+  //consts for hide temporarily
   const socialCommentCount = document.querySelector('.social__comment-count');
   const commentsLoader = document.querySelector('.comments-loader');
-
-  console.log(posts);
 
   const closeBigPicModal = () => {
     bigPicture.classList.add('hidden');
@@ -40,12 +38,38 @@ export default function openFullScreenPost(posts) {
     };
   };
 
+  const showPostData = (postData) => {
+    const picture = document.querySelector('.big-picture__img');
+    const likes = document.querySelector('.likes-count');
+    const caption = document.querySelector('.social__caption');
+    const comments = document.querySelector('.social__comments');
+
+    picture.querySelector('img').src = `${postData.url}`;
+    likes.textContent = `${postData.likes}`;
+    caption.textContent = `${postData.description}`;
+
+    const postComments = [];
+    postData.comments.forEach((item) => {
+      const comment = `
+      <li class="social__comment">
+        <img class="social__picture" src="${item.avatar}" alt="${item.name}" width="35" height="35">
+        <p class="social__text">${item.message}</p>
+      </li>
+      `;
+      postComments.push(comment);
+    });
+
+    comments.innerHTML = postComments;
+  };
+
   const getCurrentPost = () => {
     picturesBlock.addEventListener('click', (evt) => {
       const postId = +(evt.target.parentElement.getAttribute('data-id'));
       posts.forEach((elem) => {
         if(elem.id === postId){
+          const postData = elem;
           openBigPicModal();
+          showPostData(postData);
         }
       });
     });
