@@ -16,6 +16,7 @@ export default function showPictures() {
     templateItem.querySelector('.picture__img').src = `${posts[i].url}`;
     templateItem.querySelector('.picture__comments').textContent = `${posts[i].comments.length}`;
     templateItem.querySelector('.picture__likes').textContent = `${posts[i].likes}`;
+    templateItem.querySelector('.picture').setAttribute('data-id', posts[i].id);
 
     fragment.append(templateItem);
   }
