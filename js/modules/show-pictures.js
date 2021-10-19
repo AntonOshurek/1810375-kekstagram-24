@@ -1,8 +1,11 @@
 import getPosts from './get-posts.js';
+import openFullScreenPost from './openFullScreenPost.js';
 
 const pictureBlock = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture');
 const posts = getPosts();
+
+openFullScreenPost(posts);
 
 export default function showPictures() {
   const fragment = new DocumentFragment();
