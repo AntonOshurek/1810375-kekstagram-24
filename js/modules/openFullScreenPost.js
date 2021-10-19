@@ -43,23 +43,24 @@ export default function openFullScreenPost(posts) {
     const likes = document.querySelector('.likes-count');
     const caption = document.querySelector('.social__caption');
     const comments = document.querySelector('.social__comments');
+    const comment = document.querySelector('.social__comment');
 
     picture.querySelector('img').src = `${postData.url}`;
     likes.textContent = `${postData.likes}`;
     caption.textContent = `${postData.description}`;
 
-    const postComments = [];
+    comments.innerHTML = ''; //clear comments block
+    const fragment = new DocumentFragment();
+
     postData.comments.forEach((item) => {
-      const comment = `
-      <li class="social__comment">
-        <img class="social__picture" src="${item.avatar}" alt="${item.name}" width="35" height="35">
-        <p class="social__text">${item.message}</p>
-      </li>
-      `;
-      postComments.push(comment);
+      const commentItem = comment.cloneNode(true);
+      commentItem.querySelector('.social__picture').src = item.avatar;
+      commentItem.querySelector('.social__picture').alt = item.name;
+      commentItem.querySelector('.social__text').textContent = item.message;
+      fragment.append(commentItem);
     });
 
-    comments.innerHTML = postComments;
+    comments.append(fragment);
   };
 
   const getCurrentPost = () => {
