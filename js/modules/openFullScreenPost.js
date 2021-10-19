@@ -2,27 +2,18 @@ export default function openFullScreenPost(posts) {
   const picturesBlock = document.querySelector('.pictures');
   const pictureElem = document.querySelectorAll('.picture');
 
-  const getCurrentPost = (evt) => {
-    if (evt.target.closest('.picture')) {
-      //console.log(evt.srcElement.src);
-    } else {
-      console.log('else');
-    }
-  };
+  console.log(posts);
 
-  picturesBlock.addEventListener('click', (evt) => {
-    const target = evt.target;
-
-    if (target && target.classList.contains('.picture__img')) {
-      pictureElem.forEach((element, i) => {
-        if (evt.target === element) {
-          console.log(element);
+  const getCurrentPost = () => {
+    picturesBlock.addEventListener('click', (evt) => {
+      const postId = +(evt.target.parentElement.getAttribute('data-id'));
+      posts.forEach((elem) => {
+        if(elem.id === postId){
+          console.log(elem);
         }
       });
-    }
+    });
+  };
 
-    getCurrentPost(evt);
-  });
-
-  console.log(posts);
+  getCurrentPost();
 }
