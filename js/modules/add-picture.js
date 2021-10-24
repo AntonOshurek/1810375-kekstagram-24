@@ -7,6 +7,7 @@ export default function addPicture() {
   const imageUploadCancel = document.querySelector('.img-upload__cancel');
   const textHashtags = document.querySelector('.text__hashtags');
   const textDescription = document.querySelector('.text__description');
+  const imgPreview = document.querySelector('.img-upload__preview-img');
   const MAX_COMMENT_LENGTH = 140;
   const commentReg = /^#[A-Za-zА-Яа-яЁё0-9]*$|(^$)/i;
 
@@ -38,9 +39,9 @@ export default function addPicture() {
         error = 'хеш-тег не может состоять только из одной решётки';
       }
 
-      /*if(!commentReg.test(hash)) {
+      if(!commentReg.test(hash)) {
         error = 'хештег не может содержать пробелы, спецсимволы (@, $ и т. п.)';
-      }*/
+      }
 
       if(hash.length > 5) {
         error = 'не больше 20 символов';
@@ -100,6 +101,7 @@ export default function addPicture() {
 
   uploadFile.addEventListener('change', () => {
     uploadModalOpen();
+    imgPreview.src = URL.createObjectURL(uploadFile.files[0]);
   });
 
 }
