@@ -9,7 +9,9 @@ export default function addPicture() {
   const textDescription = document.querySelector('.text__description');
   const imgPreview = document.querySelector('.img-upload__preview-img');
   const MAX_COMMENT_LENGTH = 140;
-  const commentReg = /^#[A-Za-zА-Яа-яЁё0-9]*$|(^$)/i;
+  const MAX_HASH_LENGTH = 20;
+  const MAX_HASH_ARRAY_LANGTH = 5;
+  const commentReg = /^#[A-Za-zА-Яа-яЁё0-9]/ig;
 
   const hasDuplicates = (array) => (new Set(array)).size !== array.length;
 
@@ -39,11 +41,12 @@ export default function addPicture() {
         error = 'хеш-тег не может состоять только из одной решётки';
       }
 
-      if(!commentReg.test(hash)) {
+      /*if(commentReg.test(hash) === false) {
         error = 'хештег не может содержать пробелы, спецсимволы (@, $ и т. п.)';
-      }
+        console.log(commentReg.test(hash));
+      }*/
 
-      if(hash.length > 5) {
+      if(hash.length > MAX_HASH_LENGTH) {
         error = 'не больше 20 символов';
       }
 
@@ -51,7 +54,7 @@ export default function addPicture() {
         error = 'хеш-теги не могут повторяться';
       }
 
-      if (hashArray.length > 5) {
+      if (hashArray.length > MAX_HASH_ARRAY_LANGTH) {
         error = 'не больше 5 тегов';
       }
     });
