@@ -7,10 +7,12 @@ export default function addPicture() {
   const imageUploadCancel = document.querySelector('.img-upload__cancel');
   const textHashtags = document.querySelector('.text__hashtags');
   const textDescription = document.querySelector('.text__description');
-  const uploadSubmit = document.querySelector('.img-upload__submit');
+  const MAX_COMMENT_LENGTH = 140;
+  const commentReg = /^#[A-Za-zА-Яа-яЁё0-9]*$|(^$)/i;
+
+  const hasDuplicates = (array) => (new Set(array)).size !== array.length;
 
   const checkCommentValidity = () => {
-    const MAX_COMMENT_LENGTH = 140;
     if (!testStringLength(MAX_COMMENT_LENGTH, textDescription.value)) {
       textDescription.setCustomValidity('до 140 символов');
     } else {
@@ -20,13 +22,45 @@ export default function addPicture() {
   };
 
   const checkHashValidity = () => {
-    const reg = /(#[a-z0-9][a-z0-9\-_]*)/ig;
 
-    if (!reg.test(textHashtags.value)) {
-      textHashtags.setCustomValidity('некорректный тег');
-    } else {
+    textHashtags.value = textHashtags.value.toLowerCase().replace(/\s+/g, ' ');
+    const hashArray = textHashtags.value.split(' ');
+    console.log(hashArray);
+
+    let error = '';
+
+    hashArray.forEach((hash) => {
+      if(!hash.startsWith('#')) {
+        error = 'хештег должен начинаться с решётки #';
+      }
+
+      if(hash === '#') {
+        error = 'хеш-тег не может состоять только из одной решётки';
+      }
+
+      /*if(!commentReg.test(hash)) {
+        error = 'хештег не может содержать пробелы, спецсимволы (@, $ и т. п.)';
+      }*/
+
+      if(hash.length > 5) {
+        error = 'не больше 20 символов';
+      }
+
+      if(hasDuplicates(hashArray)) {
+        error = 'хеш-теги не могут повторяться';
+      }
+
+      if (hashArray.length > 5) {
+        error = 'не больше 5 тегов';
+      }
+    });
+
+    if (error === '' || error === 0) {
       textHashtags.setCustomValidity('');
+    } else {
+      textHashtags.setCustomValidity(error);
     }
+
     textHashtags.reportValidity();
   };
 
