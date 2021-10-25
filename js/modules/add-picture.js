@@ -10,8 +10,8 @@ export default function addPicture() {
   const imgPreview = document.querySelector('.img-upload__preview-img');
   const MAX_COMMENT_LENGTH = 140;
   const MAX_HASH_LENGTH = 20;
-  const MAX_HASH_ARRAY_LANGTH = 5;
-  const commentReg = /^#[A-Za-zА-Яа-яЁё0-9]/ig;
+  const MAX_HASH_ARRAY_LENGTH = 5;
+  const commentReg = /[~`!@_()$%^&*+=\-[\]\\';,/{}|\\":<>?]/g;
 
   const hasDuplicates = (array) => (new Set(array)).size !== array.length;
 
@@ -25,11 +25,8 @@ export default function addPicture() {
   };
 
   const checkHashValidity = () => {
-
     textHashtags.value = textHashtags.value.toLowerCase().replace(/\s+/g, ' ');
     const hashArray = textHashtags.value.split(' ');
-    console.log(hashArray);
-
     let error = '';
 
     hashArray.forEach((hash) => {
@@ -41,10 +38,9 @@ export default function addPicture() {
         error = 'хеш-тег не может состоять только из одной решётки';
       }
 
-      /*if(commentReg.test(hash) === false) {
+      if(commentReg.test(hash)) {
         error = 'хештег не может содержать пробелы, спецсимволы (@, $ и т. п.)';
-        console.log(commentReg.test(hash));
-      }*/
+      }
 
       if(hash.length > MAX_HASH_LENGTH) {
         error = 'не больше 20 символов';
@@ -54,13 +50,15 @@ export default function addPicture() {
         error = 'хеш-теги не могут повторяться';
       }
 
-      if (hashArray.length > MAX_HASH_ARRAY_LANGTH) {
+      if (hashArray.length > MAX_HASH_ARRAY_LENGTH) {
         error = 'не больше 5 тегов';
       }
     });
 
     if (error === '' || error === 0) {
       textHashtags.setCustomValidity('');
+    } else if (hashArray[0] === '') {
+      textHashtags.value = textHashtags.value.trim();
     } else {
       textHashtags.setCustomValidity(error);
     }
