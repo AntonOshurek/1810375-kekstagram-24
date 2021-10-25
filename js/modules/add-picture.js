@@ -34,7 +34,7 @@ export default function addPicture() {
 
     hashArray.forEach((hash) => {
       if(!hash.startsWith('#')) {
-        error = 'хештег должен начинаться с решётки #';
+        error = 'хеш-тег должен начинаться с решётки #';
       }
 
       if(hash === '#') {
@@ -69,7 +69,7 @@ export default function addPicture() {
   };
 
   const onUploadEscKeydown = (evt) => {
-    if (evt.key === 'Escape') {
+    if (!evt.target.closest('.img-upload__text') && evt.key === 'Escape' ) {
       evt.preventDefault();
       uploadModalClose();
     }
@@ -94,7 +94,7 @@ export default function addPicture() {
     imageUpload.classList.add('hidden');
     body.classList.remove('modal-open');
 
-    document.removeEventListener('keydown', onCancelClick);
+    document.removeEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.removeEventListener('click', onCancelClick);
 
     textDescription.removeEventListener('input', checkCommentValidity);
