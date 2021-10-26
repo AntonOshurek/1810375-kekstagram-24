@@ -1,16 +1,18 @@
 import {testStringLength} from './test-string.js';
 
+const MAX_COMMENT_LENGTH = 140;
+const MAX_HASH_LENGTH = 20;
+const MAX_HASH_ARRAY_LENGTH = 5;
+
 export default function addPicture() {
   const body = document.querySelector('body');
-  const uploadFile = document.querySelector('#upload-file');
-  const imageUpload = document.querySelector('.img-upload__overlay');
-  const imageUploadCancel = document.querySelector('.img-upload__cancel');
-  const textHashtags = document.querySelector('.text__hashtags');
-  const textDescription = document.querySelector('.text__description');
-  const imgPreview = document.querySelector('.img-upload__preview-img');
-  const MAX_COMMENT_LENGTH = 140;
-  const MAX_HASH_LENGTH = 20;
-  const MAX_HASH_ARRAY_LENGTH = 5;
+  const uploadForm = document.querySelector('.img-upload__form');
+  const uploadFile = uploadForm.querySelector('#upload-file');
+  const imageUpload = uploadForm.querySelector('.img-upload__overlay');
+  const imageUploadCancel = uploadForm.querySelector('.img-upload__cancel');
+  const textHashtags = uploadForm.querySelector('.text__hashtags');
+  const textDescription = uploadForm.querySelector('.text__description');
+  const imgPreview = uploadForm.querySelector('.img-upload__preview-img');
   const commentReg = /[~`!@_()$%^&*+=\-[\]\\';,/{}|\\":<>?]/g;
 
   const hasDuplicates = (array) => (new Set(array)).size !== array.length;
@@ -25,8 +27,8 @@ export default function addPicture() {
   };
 
   const checkHashValidity = () => {
-    textHashtags.value = textHashtags.value.toLowerCase().replace(/\s+/g, ' ');
-    const hashArray = textHashtags.value.split(' ');
+    textHashtags.value = textHashtags.value.replace(/\s+/g, ' ');
+    const hashArray = textHashtags.value.toLowerCase().split(' ');
     let error = '';
 
     hashArray.forEach((hash) => {
@@ -55,7 +57,7 @@ export default function addPicture() {
       }
     });
 
-    if (error === '' || error === 0) {
+    if (!error) {
       textHashtags.setCustomValidity('');
     } else if (hashArray[0] === '') {
       textHashtags.value = textHashtags.value.trim();
@@ -91,6 +93,7 @@ export default function addPicture() {
   function uploadModalClose () {
     imageUpload.classList.add('hidden');
     body.classList.remove('modal-open');
+    uploadForm.reset();
 
     document.removeEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.removeEventListener('click', onCancelClick);
