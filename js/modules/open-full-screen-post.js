@@ -15,6 +15,9 @@ export default function openFullScreenPost(posts) {
   const comments = document.querySelector('.social__comments');
   const commentLoaderButton = document.querySelector('.social__comments-loader');
 
+  let pageNum = 0;
+  let postData;
+
   const onPopupEscKeydown = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
@@ -26,21 +29,7 @@ export default function openFullScreenPost(posts) {
     closeBigPicModal();
   };
 
-  function openBigPicModal () {
-    bigPicture.classList.remove('hidden');
-    body.classList.add('modal-open');
-    document.addEventListener('keydown', onPopupEscKeydown);
-    closeButton.addEventListener('click', onCloseButtonClick);
-  }
-
-  function closeBigPicModal () {
-    bigPicture.classList.add('hidden');
-    body.classList.remove('modal-open');
-    document.removeEventListener('keydown', onPopupEscKeydown);
-    closeButton.removeEventListener('click', onCloseButtonClick);
-  }
-
-  const showComments = (commentsList, postData) => {
+  const showComments = (commentsList) => {
     const fragment = new DocumentFragment();
 
     commentsList.forEach((currentComment) => {
@@ -61,7 +50,19 @@ export default function openFullScreenPost(posts) {
     }
   };
 
-  const showPostData = (postData) => {
+  const getComments = () => {
+    const start = pageNum * NOTES_ON_PAGE;
+    const end = start + NOTES_ON_PAGE;
+    const commentsList = postData.comments.slice(start, end);
+    showComments(commentsList);
+  };
+
+  const onGetNewComments = () => {
+    pageNum++;
+    getComments();
+  };
+
+  const showPostData = () => {
     picture.querySelector('img').src = postData.url;
     likes.textContent = postData.likes;
     caption.textContent = postData.description;
@@ -69,26 +70,7 @@ export default function openFullScreenPost(posts) {
     commentsCount.textContent = postData.comments.length; //shows the number of comments
 
     commentLoaderButton.addEventListener('click', onGetNewComments);
-
-    let pageNum = 0;
-
-    const getComments = () => {
-      const start = pageNum * NOTES_ON_PAGE;
-      const end = start + NOTES_ON_PAGE;
-      const commentsList = postData.comments.slice(start, end);
-      showComments(commentsList, postData);
-
-      const socialComment = document.querySelectorAll('.social__comment');
-      if (+socialComment.length >= postData.comments.length) {
-        commentLoaderButton.removeEventListener('click', onGetNewComments);
-      }
-    };
     getComments();
-
-    function onGetNewComments () {
-      pageNum++;
-      getComments();
-    }
   };
 
   const getCurrentPost = () => {
@@ -97,11 +79,29 @@ export default function openFullScreenPost(posts) {
       posts.forEach((post) => {
         if(post.id === postId){
           openBigPicModal();
-          showPostData(post);
+          postData = post;
+          showPostData();
         }
       });
     });
   };
+
+  function openBigPicModal () {
+    bigPicture.classList.remove('hidden');
+    body.classList.add('modal-open');
+    document.addEventListener('keydown', onPopupEscKeydown);
+    closeButton.addEventListener('click', onCloseButtonClick);
+  }
+
+  function closeBigPicModal () {
+    bigPicture.classList.add('hidden');
+    body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onPopupEscKeydown);
+    closeButton.removeEventListener('click', onCloseButtonClick);
+    commentLoaderButton.removeEventListener('click', onGetNewComments);
+    pageNum = 0;
+    postData = '';
+  }
 
   getCurrentPost();
 }
