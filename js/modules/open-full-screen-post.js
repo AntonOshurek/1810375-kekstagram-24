@@ -8,7 +8,7 @@ export default function openFullScreenPost(posts) {
   const picture = document.querySelector('.big-picture__img');
   const likes = document.querySelector('.likes-count');
   const caption = document.querySelector('.social__caption');
-  //var for comments
+  //vars for comments
   const commentsCount = document.querySelector('.comments-count');
   const comment = document.querySelector('.social__comment');
   const commentsShowCount = document.querySelector('.comments-show-count');
@@ -68,9 +68,9 @@ export default function openFullScreenPost(posts) {
     comments.innerHTML = ''; //clear comments block
     commentsCount.textContent = postData.comments.length; //shows the number of comments
 
-    let pageNum = 0;
-
     commentLoaderButton.addEventListener('click', onGetNewComments);
+
+    let pageNum = 0;
 
     const getComments = () => {
       const start = pageNum * NOTES_ON_PAGE;
@@ -78,8 +78,8 @@ export default function openFullScreenPost(posts) {
       const commentsList = postData.comments.slice(start, end);
       showComments(commentsList, postData);
 
-      const commentsItems = document.querySelectorAll('.social__comment');
-      if (+commentsItems.length >= postData.comments.length) {
+      const socialComment = document.querySelectorAll('.social__comment');
+      if (+socialComment.length >= postData.comments.length) {
         commentLoaderButton.removeEventListener('click', onGetNewComments);
       }
     };

@@ -44,7 +44,7 @@ export default function getPosts() {
 
   const getComments = (user) => {
     const userComents = [];
-    for(let i = 0; i < getRandomInt(4, 7); i++) {
+    for(let i = 0; i < getRandomInt(1, 8); i++) {
       userComents.push({
         id: `user${user}${getUniqueId()}`,
         avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
@@ -62,7 +62,7 @@ export default function getPosts() {
       postList.push( {
         id: i + 1,
         url: `photos/${i+1}.jpg`,
-        description: `${DESCRIPTIONS[getRandomInt(0, DESCRIPTIONS.length)]}`,
+        description: DESCRIPTIONS[getRandomInt(0, (DESCRIPTIONS.length - 1))],
         likes: getRandomInt(15, 200),
         comments: getComments(i),
       });
