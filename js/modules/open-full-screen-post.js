@@ -1,3 +1,5 @@
+const NOTES_ON_PAGE = 5;
+
 export default function openFullScreenPost(posts) {
   const picturesBlock = document.querySelector('.pictures');
   const bigPicture = document.querySelector('.big-picture');
@@ -5,7 +7,6 @@ export default function openFullScreenPost(posts) {
   const closeButton = document.querySelector('.big-picture__cancel');
 
   const commentLoaderButton = document.querySelector('.social__comments-loader');
-  const NOTES_ON_PAGE = 5;
 
   const onPopupEscKeydown = (evt) => {
     if (evt.key === 'Escape') {
@@ -62,7 +63,7 @@ export default function openFullScreenPost(posts) {
       //shows the number of displayed comments
       const commentsItems = document.querySelectorAll('.social__comment');
       commentsShowCount.textContent = commentsItems.length;
-      if (commentsItems.length >= postData.comments.length) {
+      if (+commentsItems.length >= postData.comments.length) {
         commentLoaderButton.classList.add('hidden');
       } else {
         commentLoaderButton.classList.remove('hidden');
@@ -79,7 +80,7 @@ export default function openFullScreenPost(posts) {
     };
     getComments();
 
-    commentLoaderButton.addEventListener('click', () => {
+    commentLoaderButton.addEventListener('click', () => { //how remove this listener???
       pageNum++;
       getComments();
     });
