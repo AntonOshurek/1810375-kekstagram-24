@@ -44,7 +44,7 @@ export default function getPosts() {
 
   const getComments = (user) => {
     const userComents = [];
-    for(let i = 0; i < getRandomInt(1, 8); i++) {
+    for(let i = 0; i < getRandomInt(4, 7); i++) {
       userComents.push({
         id: `user${user}${getUniqueId()}`,
         avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
