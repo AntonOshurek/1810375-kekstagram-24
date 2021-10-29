@@ -62,7 +62,7 @@ export default function getPosts() {
       postList.push( {
         id: i + 1,
         url: `photos/${i+1}.jpg`,
-        description: `${DESCRIPTIONS[getRandomInt(0, DESCRIPTIONS.length)]}`,
+        description: DESCRIPTIONS[getRandomInt(0, (DESCRIPTIONS.length - 1))],
         likes: getRandomInt(15, 200),
         comments: getComments(i),
       });
