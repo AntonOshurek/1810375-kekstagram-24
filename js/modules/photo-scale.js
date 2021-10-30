@@ -2,7 +2,7 @@ const STEP = 25;
 const MAX_SCALE_VALUE = 100;
 const MIN_SCALE_VALUE = 25;
 
-export default function photoEditing() {
+export default function photoScale() {
   const image = document.querySelector('.img-upload__preview-img');
   const scaleUpBtn = document.querySelector('.scale__control--bigger');
   const scaleDownBtn = document.querySelector('.scale__control--smaller');
