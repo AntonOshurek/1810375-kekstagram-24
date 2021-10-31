@@ -1,5 +1,5 @@
 import {checkCommentValidity, checkHashValidity} from './check-validity.js';
-import {scaleEffect} from './photo-effects.js';
+import {scaleEffect, onImgEffects} from './photo-effects.js';
 
 export default function addPicture() {
   const body = document.querySelector('body');
@@ -9,9 +9,12 @@ export default function addPicture() {
   const imageUploadCancel = uploadForm.querySelector('.img-upload__cancel');
   const textHashtags = uploadForm.querySelector('.text__hashtags');
   const textDescription = document.querySelector('.text__description');
-  const imgPreview = uploadForm.querySelector('.img-upload__preview-img');
+  const imgPreview = uploadForm.querySelector('.img-upload__preview img');
+  //img scale
   const scaleButton = document.querySelector('.img-upload__scale');
   const scaleInput = document.querySelector('.scale__control--value');
+  //img effetcts
+  const imgEffects = document.querySelector('.img-upload__effects');
 
   const onUploadEscKeydown = (evt) => {
     if (!evt.target.closest('.img-upload__text') && evt.key === 'Escape' ) {
@@ -34,8 +37,8 @@ export default function addPicture() {
     textHashtags.addEventListener('input', checkHashValidity);
     //scale effect
     scaleButton.addEventListener('click', scaleEffect);
-    scaleInput.value = 100;
-    imgPreview.style.transform = 'scale(1.0)';
+    //img effects
+    imgEffects.addEventListener('click', onImgEffects);
   }
 
   function uploadModalClose () {
@@ -43,12 +46,17 @@ export default function addPicture() {
     body.classList.remove('modal-open');
     uploadForm.reset();
     uploadFile.value = '';
+    //photo editing style reset
+    scaleInput.value = 100;
+    imgPreview.style.transform = 'scale(1.0)';
+    imgPreview.className = '';
 
     document.removeEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.removeEventListener('click', onCancelClick);
     textDescription.removeEventListener('input', checkCommentValidity);
     textHashtags.removeEventListener('input', checkHashValidity);
     scaleButton.removeEventListener('click', scaleEffect);
+    imgEffects.removeEventListener('click', onImgEffects);
   }
 
   uploadFile.addEventListener('change', () => {

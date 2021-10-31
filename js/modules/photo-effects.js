@@ -14,6 +14,8 @@ const scalePhoto = (scaleValue) => {
 };
 
 export const scaleEffect = (evt) => {
+
+
   if (evt.target.closest('.scale__control--smaller')) {
     if(scaleInput.value > MIN_SCALE_VALUE) {
       scaleInput.value = +scaleInput.value - SCALE_STEP;
@@ -34,54 +36,37 @@ export const scaleEffect = (evt) => {
 };
 
 //PHOTO FILTERS EFFECTS
-const slider = document.querySelector('.effect-level__slider');
-const imgEffects = document.querySelector('.img-upload__effects');
+//const slider = document.querySelector('.effect-level__slider');
 
-noUiSlider.create(slider, {
-  range: {
-    min: 0,
-    max: 100,
-  },
-  start: 0,
-  step: 1,
-  connect: 'lower',
-  format: {
-    to: function (value) {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
-    },
-    from: function (value) {
-      return parseFloat(value);
-    },
-  },
-});
-
-slider.noUiSlider.destroy();
-
-const onImgEffects = (evt) => {
-  image.className = '';
+export const onImgEffects = (evt) => {
 
   if(evt.target.closest('.effects__preview--none')) {
-    slider.noUiSlider.destroy();
+    console.log('effects__preview--none');
+    image.className = '';
   }
 
   if(evt.target.closest('.effects__preview--chrome')) {
-    image.classList.add('.effects__preview--chrome');
+    console.log('effects__preview--chrome');
+    image.className = 'effects__preview--chrome';
+  }
 
-    slider.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1,
-      },
-      start: 0,
-      step: 0.1,
-      connect: 'lower',
-    });
+  if(evt.target.closest('.effects__preview--sepia')) {
+    console.log('effects__preview--sepia');
+    image.className = 'effects__preview--sepia';
+  }
+
+  if(evt.target.closest('.effects__preview--marvin')) {
+    console.log('effects__preview--marvin');
+    image.className = 'effects__preview--marvin';
+  }
+
+  if(evt.target.closest('.effects__preview--phobos')) {
+    console.log('effects__preview--phobos');
+    image.className = 'effects__preview--phobos';
+  }
+
+  if(evt.target.closest('.effects__preview--heat')) {
+    console.log('effects__preview--heat');
+    image.className = 'effects__preview--heat';
   }
 };
-
-imgEffects.addEventListener('click', onImgEffects);
-
-
