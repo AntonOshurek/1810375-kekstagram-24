@@ -36,31 +36,113 @@ export const scaleEffect = (evt) => {
 };
 
 //PHOTO FILTERS EFFECTS
-//const slider = document.querySelector('.effect-level__slider');
+const slider = document.querySelector('.effect-level__slider');
+const effectLevelValue = document.querySelector('.effect-level__value');
+
+noUiSlider.create(slider, {
+  range: {
+    min: 0,
+    max: 1,
+  },
+  start: 1,
+  step: 0.1,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
+});
+
+const checkSlider = (effect, symbol = '') => {
+  slider.noUiSlider.on('update', (values, handle) => {
+    effectLevelValue.value = values[handle];
+    console.log(effectLevelValue.value);
+
+    image.style.filter = `${effect}(${values[handle]}${symbol})`;
+  });
+};
 
 export const onImgEffects = (evt) => {
 
   if(evt.target.closest('.effects__preview--none')) {
     image.className = '';
+    image.style.filter = '';
   }
 
   if(evt.target.closest('.effects__preview--chrome')) {
     image.className = 'effects__preview--chrome';
+
+    slider.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 1,
+      },
+      start: 1,
+      step: 0.1,
+    });
+    checkSlider('grayscale');
   }
 
   if(evt.target.closest('.effects__preview--sepia')) {
     image.className = 'effects__preview--sepia';
+
+    slider.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 1,
+      },
+      start: 1,
+      step: 0.1,
+    });
+    checkSlider('sepia');
   }
 
   if(evt.target.closest('.effects__preview--marvin')) {
     image.className = 'effects__preview--marvin';
+
+    slider.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 100,
+      },
+      start: 100,
+      step: 1,
+    });
+    checkSlider('invert', '%');
   }
 
   if(evt.target.closest('.effects__preview--phobos')) {
     image.className = 'effects__preview--phobos';
+
+    slider.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 3,
+      },
+      start: 3,
+      step: 0.1,
+    });
+    checkSlider('blur', 'px');
   }
 
   if(evt.target.closest('.effects__preview--heat')) {
     image.className = 'effects__preview--heat';
+
+    slider.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 3,
+      },
+      start: 3,
+      step: 0.1,
+    });
+    checkSlider('brightness');
   }
 };
