@@ -30,15 +30,21 @@ export default function addPicture() {
   function uploadModalOpen () {
     imageUpload.classList.remove('hidden');
     body.classList.add('modal-open');
-
+    //close modal listeners
     document.addEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.addEventListener('click', onCancelClick);
+    //description checked function
     textDescription.addEventListener('input', checkCommentValidity);
+    // # validity function
     textHashtags.addEventListener('input', checkHashValidity);
     //scale effect
     scaleButton.addEventListener('click', scaleEffect);
     //img effects
     imgEffects.addEventListener('click', onImgEffects);
+    //photo editing style reset
+    imgPreview.style.transform = 'scale(1.0)';
+    imgPreview.className = '';
+    scaleInput.value = 100;
   }
 
   function uploadModalClose () {
@@ -46,10 +52,6 @@ export default function addPicture() {
     body.classList.remove('modal-open');
     uploadForm.reset();
     uploadFile.value = '';
-    //photo editing style reset
-    scaleInput.value = 100;
-    imgPreview.style.transform = 'scale(1.0)';
-    imgPreview.className = '';
 
     document.removeEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.removeEventListener('click', onCancelClick);

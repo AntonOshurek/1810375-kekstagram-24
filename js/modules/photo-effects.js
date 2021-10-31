@@ -41,32 +41,26 @@ export const scaleEffect = (evt) => {
 export const onImgEffects = (evt) => {
 
   if(evt.target.closest('.effects__preview--none')) {
-    console.log('effects__preview--none');
     image.className = '';
   }
 
   if(evt.target.closest('.effects__preview--chrome')) {
-    console.log('effects__preview--chrome');
     image.className = 'effects__preview--chrome';
   }
 
   if(evt.target.closest('.effects__preview--sepia')) {
-    console.log('effects__preview--sepia');
     image.className = 'effects__preview--sepia';
   }
 
   if(evt.target.closest('.effects__preview--marvin')) {
-    console.log('effects__preview--marvin');
     image.className = 'effects__preview--marvin';
   }
 
   if(evt.target.closest('.effects__preview--phobos')) {
-    console.log('effects__preview--phobos');
     image.className = 'effects__preview--phobos';
   }
 
   if(evt.target.closest('.effects__preview--heat')) {
-    console.log('effects__preview--heat');
     image.className = 'effects__preview--heat';
   }
 };
