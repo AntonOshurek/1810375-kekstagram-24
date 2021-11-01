@@ -4,7 +4,10 @@ const MIN_SCALE_VALUE = 25;
 
 const image = document.querySelector('.img-upload__preview img');
 const scaleInput = document.querySelector('.scale__control--value');
+const slider = document.querySelector('.effect-level__slider');
+const effectLevelValue = document.querySelector('.effect-level__value');
 
+//PHOTO SCALE EFFECT
 const scalePhoto = (scaleValue) => {
   if(scaleValue >= 100) {
     image.style.transform = 'scale(1.0)';
@@ -15,9 +18,8 @@ const scalePhoto = (scaleValue) => {
 
 export const scaleEffect = (evt) => {
 
-
   if (evt.target.closest('.scale__control--smaller')) {
-    if(scaleInput.value > MIN_SCALE_VALUE) {
+    if(+scaleInput.value > MIN_SCALE_VALUE) {
       scaleInput.value = +scaleInput.value - SCALE_STEP;
       scalePhoto(+scaleInput.value);
     } else {
@@ -36,9 +38,6 @@ export const scaleEffect = (evt) => {
 };
 
 //PHOTO FILTERS EFFECTS
-const slider = document.querySelector('.effect-level__slider');
-const effectLevelValue = document.querySelector('.effect-level__value');
-
 noUiSlider.create(slider, {
   range: {
     min: 0,
@@ -59,12 +58,12 @@ noUiSlider.create(slider, {
     },
   },
 });
+slider.style.display = 'none';
+
 
 const checkSlider = (effect, symbol = '') => {
   slider.noUiSlider.on('update', (values, handle) => {
     effectLevelValue.value = values[handle];
-    console.log(effectLevelValue.value);
-
     image.style.filter = `${effect}(${values[handle]}${symbol})`;
   });
 };
@@ -74,10 +73,12 @@ export const onImgEffects = (evt) => {
   if(evt.target.closest('.effects__preview--none')) {
     image.className = '';
     image.style.filter = '';
+    slider.style.display = 'none';
   }
 
   if(evt.target.closest('.effects__preview--chrome')) {
     image.className = 'effects__preview--chrome';
+    slider.style.display = 'block';
 
     slider.noUiSlider.updateOptions({
       range: {
@@ -92,6 +93,7 @@ export const onImgEffects = (evt) => {
 
   if(evt.target.closest('.effects__preview--sepia')) {
     image.className = 'effects__preview--sepia';
+    slider.style.display = 'block';
 
     slider.noUiSlider.updateOptions({
       range: {
@@ -106,6 +108,7 @@ export const onImgEffects = (evt) => {
 
   if(evt.target.closest('.effects__preview--marvin')) {
     image.className = 'effects__preview--marvin';
+    slider.style.display = 'block';
 
     slider.noUiSlider.updateOptions({
       range: {
@@ -120,6 +123,7 @@ export const onImgEffects = (evt) => {
 
   if(evt.target.closest('.effects__preview--phobos')) {
     image.className = 'effects__preview--phobos';
+    slider.style.display = 'block';
 
     slider.noUiSlider.updateOptions({
       range: {
@@ -134,6 +138,7 @@ export const onImgEffects = (evt) => {
 
   if(evt.target.closest('.effects__preview--heat')) {
     image.className = 'effects__preview--heat';
+    slider.style.display = 'block';
 
     slider.noUiSlider.updateOptions({
       range: {

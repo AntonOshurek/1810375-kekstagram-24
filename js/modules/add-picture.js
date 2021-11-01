@@ -15,6 +15,7 @@ export default function addPicture() {
   const scaleInput = document.querySelector('.scale__control--value');
   //img effetcts
   const imgEffects = document.querySelector('.img-upload__effects');
+  const slider = document.querySelector('.effect-level__slider');
 
   const onUploadEscKeydown = (evt) => {
     if (!evt.target.closest('.img-upload__text') && evt.key === 'Escape' ) {
@@ -41,10 +42,6 @@ export default function addPicture() {
     scaleButton.addEventListener('click', scaleEffect);
     //img effects
     imgEffects.addEventListener('click', onImgEffects);
-    //photo editing style reset
-    imgPreview.style.transform = 'scale(1.0)';
-    imgPreview.className = '';
-    scaleInput.value = 100;
   }
 
   function uploadModalClose () {
@@ -52,6 +49,13 @@ export default function addPicture() {
     body.classList.remove('modal-open');
     uploadForm.reset();
     uploadFile.value = '';
+
+    //photo editing style reset
+    imgPreview.style.transform = 'scale(1.0)';
+    scaleInput.value = 100;
+    imgPreview.className = '';
+    imgPreview.style.filter = '';
+    slider.style.display = 'none';
 
     document.removeEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.removeEventListener('click', onCancelClick);
