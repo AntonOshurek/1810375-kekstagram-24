@@ -9,30 +9,32 @@ const effectLevelValue = document.querySelector('.effect-level__value');
 
 //PHOTO SCALE EFFECT
 const scalePhoto = (scaleValue) => {
-  if(scaleValue >= 100) {
+  const scale = +scaleValue.replace(/\D+/, '');
+  if(scale >= 100) {
     image.style.transform = 'scale(1.0)';
   } else {
-    image.style.transform = `scale(0.${scaleValue})`;
+    image.style.transform = `scale(0.${scale})`;
   }
 };
 
 export const scaleEffect = (evt) => {
-
   if (evt.target.closest('.scale__control--smaller')) {
-    if(+scaleInput.value > MIN_SCALE_VALUE) {
-      scaleInput.value = +scaleInput.value - SCALE_STEP;
-      scalePhoto(+scaleInput.value);
+    const value = +scaleInput.value.replace(/\D+/, '');
+    if(value > MIN_SCALE_VALUE) {
+      scaleInput.value = `${value - SCALE_STEP}%`;
+      scalePhoto(scaleInput.value);
     } else {
-      scaleInput.value = MIN_SCALE_VALUE;
+      scaleInput.value = `${MIN_SCALE_VALUE}%`;
     }
   }
 
   if (evt.target.closest('.scale__control--bigger')) {
-    if(scaleInput.value < MAX_SCALE_VALUE) {
-      scaleInput.value = +scaleInput.value + SCALE_STEP;
-      scalePhoto(+scaleInput.value);
+    const value = +scaleInput.value.replace(/\D+/, '');
+    if(value < MAX_SCALE_VALUE) {
+      scaleInput.value = `${value + SCALE_STEP}%`;
+      scalePhoto(scaleInput.value);
     } else {
-      scaleInput.value = MAX_SCALE_VALUE;
+      scaleInput.value = `${MAX_SCALE_VALUE}%`;
     }
   }
 };

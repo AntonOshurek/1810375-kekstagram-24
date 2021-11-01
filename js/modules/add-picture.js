@@ -47,16 +47,16 @@ export default function addPicture() {
   function uploadModalClose () {
     imageUpload.classList.add('hidden');
     body.classList.remove('modal-open');
+    //form reset
     uploadForm.reset();
     uploadFile.value = '';
-
     //photo editing style reset
     imgPreview.style.transform = 'scale(1.0)';
-    scaleInput.value = 100;
+    scaleInput.value = '100%';
     imgPreview.className = '';
     imgPreview.style.filter = '';
     slider.style.display = 'none';
-
+    //listeners reset
     document.removeEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.removeEventListener('click', onCancelClick);
     textDescription.removeEventListener('input', checkCommentValidity);
