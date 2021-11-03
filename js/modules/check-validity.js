@@ -10,7 +10,7 @@ const textHashtags = document.querySelector('.text__hashtags');
 const commentReg = /[~`!@_()$%^&*+=\-[\]\\';,/{}|\\":<>?]/g;
 const hasDuplicates = (array) => (new Set(array)).size !== array.length;
 
-export const checkCommentValidity = () => {
+export const onCommentsCheckValidity = () => {
   if (!testStringLength(MAX_COMMENT_LENGTH, textDescription.value)) {
     textDescription.setCustomValidity('до 140 символов');
   } else {
@@ -19,7 +19,7 @@ export const checkCommentValidity = () => {
   textDescription.reportValidity();
 };
 
-export const checkHashValidity = () => {
+export const onHashTagsCheckValidity = () => {
   textHashtags.value = textHashtags.value.replace(/\s+/g, ' ');
   const hashArray = textHashtags.value.toLowerCase().split(' ');
   let error = '';

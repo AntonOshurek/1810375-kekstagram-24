@@ -1,5 +1,5 @@
-import {checkCommentValidity, checkHashValidity} from './check-validity.js';
-import {scaleEffect, onImgEffects} from './photo-effects.js';
+import {onCommentsCheckValidity, onHashTagsCheckValidity} from './check-validity.js';
+import {onImgScaleEffect, onImgEffects} from './photo-effects.js';
 
 export default function addPicture() {
   const body = document.querySelector('body');
@@ -11,7 +11,7 @@ export default function addPicture() {
   const textDescription = document.querySelector('.text__description');
   const imgPreview = uploadForm.querySelector('.img-upload__preview img');
   //img scale
-  const scaleButton = document.querySelector('.img-upload__scale');
+  const scaleControls = document.querySelector('.img-upload__scale');
   const scaleInput = document.querySelector('.scale__control--value');
   //img effetcts
   const imgEffects = document.querySelector('.img-upload__effects');
@@ -35,11 +35,11 @@ export default function addPicture() {
     document.addEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.addEventListener('click', onCancelClick);
     //description checked function
-    textDescription.addEventListener('input', checkCommentValidity);
+    textDescription.addEventListener('input', onCommentsCheckValidity);
     // # validity function
-    textHashtags.addEventListener('input', checkHashValidity);
+    textHashtags.addEventListener('input', onHashTagsCheckValidity);
     //scale effect
-    scaleButton.addEventListener('click', scaleEffect);
+    scaleControls.addEventListener('click', onImgScaleEffect);
     //img effects
     imgEffects.addEventListener('click', onImgEffects);
   }
@@ -59,9 +59,9 @@ export default function addPicture() {
     //listeners reset
     document.removeEventListener('keydown', onUploadEscKeydown);
     imageUploadCancel.removeEventListener('click', onCancelClick);
-    textDescription.removeEventListener('input', checkCommentValidity);
-    textHashtags.removeEventListener('input', checkHashValidity);
-    scaleButton.removeEventListener('click', scaleEffect);
+    textDescription.removeEventListener('input', onCommentsCheckValidity);
+    textHashtags.removeEventListener('input', onHashTagsCheckValidity);
+    scaleControls.removeEventListener('click', onImgScaleEffect);
     imgEffects.removeEventListener('click', onImgEffects);
   }
 

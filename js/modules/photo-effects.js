@@ -17,8 +17,8 @@ const scalePhoto = (scaleValue) => {
   }
 };
 
-export const scaleEffect = (evt) => {
-  if (evt.target.closest('.scale__control--smaller')) {
+export const onImgScaleEffect = (evt) => {
+  if (evt.target.getAttribute('data-scale') === 'smaller') {
     const value = +scaleInput.value.replace(/\D+/, '');
     if(value > MIN_SCALE_VALUE) {
       scaleInput.value = `${value - SCALE_STEP}%`;
@@ -28,7 +28,7 @@ export const scaleEffect = (evt) => {
     }
   }
 
-  if (evt.target.closest('.scale__control--bigger')) {
+  if (evt.target.getAttribute('data-scale') === 'bigger') {
     const value = +scaleInput.value.replace(/\D+/, '');
     if(value < MAX_SCALE_VALUE) {
       scaleInput.value = `${value + SCALE_STEP}%`;
@@ -76,11 +76,13 @@ export const onImgEffects = (evt) => {
     image.className = '';
     image.style.filter = '';
     slider.style.display = 'none';
+    slider.noUiSlider.off();
   }
 
   if(evt.target.closest('.effects__preview--chrome')) {
     image.className = 'effects__preview--chrome';
     slider.style.display = 'block';
+    slider.noUiSlider.off();
 
     slider.noUiSlider.updateOptions({
       range: {
@@ -96,6 +98,7 @@ export const onImgEffects = (evt) => {
   if(evt.target.closest('.effects__preview--sepia')) {
     image.className = 'effects__preview--sepia';
     slider.style.display = 'block';
+    slider.noUiSlider.off();
 
     slider.noUiSlider.updateOptions({
       range: {
@@ -111,6 +114,7 @@ export const onImgEffects = (evt) => {
   if(evt.target.closest('.effects__preview--marvin')) {
     image.className = 'effects__preview--marvin';
     slider.style.display = 'block';
+    slider.noUiSlider.off();
 
     slider.noUiSlider.updateOptions({
       range: {
@@ -126,6 +130,7 @@ export const onImgEffects = (evt) => {
   if(evt.target.closest('.effects__preview--phobos')) {
     image.className = 'effects__preview--phobos';
     slider.style.display = 'block';
+    slider.noUiSlider.off();
 
     slider.noUiSlider.updateOptions({
       range: {
@@ -141,10 +146,11 @@ export const onImgEffects = (evt) => {
   if(evt.target.closest('.effects__preview--heat')) {
     image.className = 'effects__preview--heat';
     slider.style.display = 'block';
+    slider.noUiSlider.off();
 
     slider.noUiSlider.updateOptions({
       range: {
-        min: 0,
+        min: 1,
         max: 3,
       },
       start: 3,
