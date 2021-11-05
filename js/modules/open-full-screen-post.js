@@ -25,7 +25,7 @@ export default function openFullScreenPost(posts) {
     }
   };
 
-  const onCloseButtonClick = () => {
+  const onButtonCloseClick = () => {
     closeBigPicModal();
   };
 
@@ -90,14 +90,14 @@ export default function openFullScreenPost(posts) {
     bigPicture.classList.remove('hidden');
     body.classList.add('modal-open');
     document.addEventListener('keydown', onPopupEscKeydown);
-    closeButton.addEventListener('click', onCloseButtonClick);
+    closeButton.addEventListener('click', onButtonCloseClick);
   }
 
   function closeBigPicModal () {
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onPopupEscKeydown);
-    closeButton.removeEventListener('click', onCloseButtonClick);
+    closeButton.removeEventListener('click', onButtonCloseClick);
     commentLoaderButton.removeEventListener('click', onGetNewComments);
     pageNum = 0;
     postData = '';
