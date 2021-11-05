@@ -9,8 +9,9 @@ export default function addPicture() {
   const imageUpload = uploadForm.querySelector('.img-upload__overlay');
   const imageUploadCancel = uploadForm.querySelector('.img-upload__cancel');
   const textHashtags = uploadForm.querySelector('.text__hashtags');
-  const textDescription = document.querySelector('.text__description');
+  const textDescription = uploadForm.querySelector('.text__description');
   const imgPreview = uploadForm.querySelector('.img-upload__preview img');
+  const imgEffectPreview = uploadForm.querySelectorAll('.effects__preview');
   //img scale
   const scaleControls = document.querySelector('.img-upload__scale');
   const scaleInput = document.querySelector('.scale__control--value');
@@ -79,6 +80,10 @@ export default function addPicture() {
 
   uploadFile.addEventListener('change', () => {
     uploadModalOpen();
-    imgPreview.src = URL.createObjectURL(uploadFile.files[0]);
+    const imgUrl = URL.createObjectURL(uploadFile.files[0]);
+    imgPreview.src = imgUrl;
+    imgEffectPreview.forEach((item) => {
+      item.style.backgroundImage = `url(${imgUrl})`;
+    });
   });
 }
