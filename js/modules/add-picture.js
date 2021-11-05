@@ -1,5 +1,6 @@
 import {onCommentsCheckValidity, onHashTagsCheckValidity} from './check-validity.js';
 import {onImgScaleEffect, onImgEffects} from './photo-effects.js';
+import {sendData} from './api.js';
 
 export default function addPicture() {
   const body = document.querySelector('body');
@@ -28,6 +29,14 @@ export default function addPicture() {
     uploadModalClose();
   };
 
+  const setUserFormSubmit = (evt) => {
+    evt.preventDefault();
+    sendData(
+      new FormData(evt.target),
+      uploadModalClose,
+    );
+  };
+
   function uploadModalOpen () {
     imageUpload.classList.remove('hidden');
     body.classList.add('modal-open');
@@ -42,6 +51,8 @@ export default function addPicture() {
     scaleControls.addEventListener('click', onImgScaleEffect);
     //img effects
     imgEffects.addEventListener('click', onImgEffects);
+    //form upload listener
+    uploadForm.addEventListener('submit', setUserFormSubmit);
   }
 
   function uploadModalClose () {
@@ -63,6 +74,7 @@ export default function addPicture() {
     textHashtags.removeEventListener('input', onHashTagsCheckValidity);
     scaleControls.removeEventListener('click', onImgScaleEffect);
     imgEffects.removeEventListener('click', onImgEffects);
+    uploadForm.removeEventListener('submit', setUserFormSubmit);
   }
 
   uploadFile.addEventListener('change', () => {

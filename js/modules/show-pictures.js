@@ -1,13 +1,7 @@
-import getPosts from './get-posts.js';
-import openFullScreenPost from './open-full-screen-post.js';
-
 const pictureBlock = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture');
-const posts = getPosts();
 
-openFullScreenPost(posts);
-
-export default function showPictures() {
+export default function showPictures(posts) {
   const fragment = new DocumentFragment();
 
   for(let i = 0; i < posts.length; i++) {
