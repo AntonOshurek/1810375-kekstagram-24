@@ -2,26 +2,16 @@ import showPictures from './modules/show-pictures.js';
 import openFullScreenPost from './modules/open-full-screen-post.js';
 import addPicture from './modules/add-picture.js';
 import {getData} from './modules/api.js';
-
-//getData(showPictures, openFullScreenPost);
+import {showAlert} from './modules/utils.js';
 
 getData().then((data) => {
-  showPictures(data);
-  openFullScreenPost(data);
+  if(data) {
+    showPictures(data);
+    openFullScreenPost(data);
+  }
+}).catch((err) => {
+  showAlert(`ошибка сервера - ${err}`);
 });
-
-/*getData((data) => {
-  console.log(data);
-  showPictures(data);
-  openFullScreenPost(data);
-});*/
-
-/*getData().then((data) => {
-  console.log(data);
-  showPictures(data);
-  openFullScreenPost(data);
-});*/
-
 
 addPicture();
 

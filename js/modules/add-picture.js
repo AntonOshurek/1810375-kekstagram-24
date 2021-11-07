@@ -1,6 +1,7 @@
 import {onCommentsCheckValidity, onHashTagsCheckValidity} from './check-validity.js';
 import {onImgScaleEffect, onImgEffects} from './photo-effects.js';
 import {sendData} from './api.js';
+import {dataPostSuccess, dataPostError, showLoadImgMessage, removeLoadImgMessage} from './utils.js';
 
 export default function addPicture() {
   const body = document.querySelector('body');
@@ -30,12 +31,21 @@ export default function addPicture() {
     uploadModalClose();
   };
 
-  const setUserFormSubmit = (evt) => {
+  const onFormSubmit = (evt) => {
     evt.preventDefault();
-    sendData(
-      new FormData(evt.target),
-      uploadModalClose,
-    );
+    showLoadImgMessage();
+
+    sendData(new FormData(evt.target))
+      .then((response) => {
+        if (response.ok) {
+          removeLoadImgMessage();
+          dataPostSuccess();
+          uploadModalClose();
+        }
+      }).catch(() => {
+        removeLoadImgMessage();
+        dataPostError();
+      });
   };
 
   function uploadModalOpen () {
@@ -53,7 +63,7 @@ export default function addPicture() {
     //img effects
     imgEffects.addEventListener('click', onImgEffects);
     //form upload listener
-    uploadForm.addEventListener('submit', setUserFormSubmit);
+    uploadForm.addEventListener('submit', onFormSubmit);
   }
 
   function uploadModalClose () {
@@ -75,7 +85,7 @@ export default function addPicture() {
     textHashtags.removeEventListener('input', onHashTagsCheckValidity);
     scaleControls.removeEventListener('click', onImgScaleEffect);
     imgEffects.removeEventListener('click', onImgEffects);
-    uploadForm.removeEventListener('submit', setUserFormSubmit);
+    uploadForm.removeEventListener('submit', onFormSubmit);
   }
 
   uploadFile.addEventListener('change', () => {
