@@ -1,6 +1,27 @@
 import {showAlert, dataPostSuccess, dataPostError, showLoadImgMessage, removeLoadImgMessage} from './utils.js';
 
-const getData = (showData, openPost) => {
+const getData = () => fetch('https://24.javascript.pages.academy/kekstagram/data')
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error(`${response.status} ${response.statusText}`);
+  });
+
+/*const getData = (onSuccess) => {
+  fetch('https://24.javascript.pages.academy/kekstagram/data')
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(`${response.status} ${response.statusText}`);
+    })
+    .then((posts) => {
+      onSuccess(posts);
+    });
+};*/
+
+/*const getData = (showData, openPost) => {
   fetch('https://24.javascript.pages.academy/kekstagram/data',
     {
       method: 'GET',
@@ -20,7 +41,7 @@ const getData = (showData, openPost) => {
     .catch(() => {
       showAlert('сервер отдыхает, попробуйте позже');
     });
-};
+};*/
 
 const sendData = (body, uploadModalClose) => {
   showLoadImgMessage();
