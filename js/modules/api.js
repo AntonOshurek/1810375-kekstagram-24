@@ -7,7 +7,7 @@ const getData = () => fetch('https://24.javascript.pages.academy/kekstagram/data
   });
 
 const sendData = (body) => fetch(
-  'https://24.javascript.pages.academy/kekstagramы',
+  'https://24.javascript.pages.academy/kekstagram',
   {
     method: 'POST',
     body,
