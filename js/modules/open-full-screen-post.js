@@ -75,14 +75,16 @@ export default function openFullScreenPost(posts) {
 
   const getCurrentPost = () => {
     picturesBlock.addEventListener('click', (evt) => {
-      const postId = +(evt.target.parentElement.getAttribute('data-id'));
-      posts.forEach((post) => {
-        if(post.id === postId){
-          openBigPicModal();
-          postData = post;
-          showPostData();
-        }
-      });
+      if(!evt.target.closest('.img-upload')) {
+        const postId = +(evt.target.parentElement.getAttribute('data-id'));
+        posts.forEach((post) => {
+          if(post.id === postId){
+            openBigPicModal();
+            postData = post;
+            showPostData();
+          }
+        });
+      }
     });
   };
 

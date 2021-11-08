@@ -1,5 +1,7 @@
 import {onCommentsCheckValidity, onHashTagsCheckValidity} from './check-validity.js';
 import {onImgScaleEffect, onImgEffects} from './photo-effects.js';
+import {sendData} from './api.js';
+import {dataPostSuccess, dataPostError, showLoadImgMessage, removeLoadImgMessage} from './utils.js';
 
 export default function addPicture() {
   const body = document.querySelector('body');
@@ -8,8 +10,9 @@ export default function addPicture() {
   const imageUpload = uploadForm.querySelector('.img-upload__overlay');
   const imageUploadCancel = uploadForm.querySelector('.img-upload__cancel');
   const textHashtags = uploadForm.querySelector('.text__hashtags');
-  const textDescription = document.querySelector('.text__description');
+  const textDescription = uploadForm.querySelector('.text__description');
   const imgPreview = uploadForm.querySelector('.img-upload__preview img');
+  const imgEffectPreview = uploadForm.querySelectorAll('.effects__preview');
   //img scale
   const scaleControls = document.querySelector('.img-upload__scale');
   const scaleInput = document.querySelector('.scale__control--value');
@@ -28,6 +31,23 @@ export default function addPicture() {
     uploadModalClose();
   };
 
+  const onFormSubmit = (evt) => {
+    evt.preventDefault();
+    showLoadImgMessage();
+
+    sendData(new FormData(evt.target))
+      .then((response) => {
+        if (response.ok) {
+          removeLoadImgMessage();
+          dataPostSuccess();
+          uploadModalClose();
+        }
+      }).catch(() => {
+        removeLoadImgMessage();
+        dataPostError();
+      });
+  };
+
   function uploadModalOpen () {
     imageUpload.classList.remove('hidden');
     body.classList.add('modal-open');
@@ -42,6 +62,8 @@ export default function addPicture() {
     scaleControls.addEventListener('click', onImgScaleEffect);
     //img effects
     imgEffects.addEventListener('click', onImgEffects);
+    //form upload listener
+    uploadForm.addEventListener('submit', onFormSubmit);
   }
 
   function uploadModalClose () {
@@ -63,10 +85,15 @@ export default function addPicture() {
     textHashtags.removeEventListener('input', onHashTagsCheckValidity);
     scaleControls.removeEventListener('click', onImgScaleEffect);
     imgEffects.removeEventListener('click', onImgEffects);
+    uploadForm.removeEventListener('submit', onFormSubmit);
   }
 
   uploadFile.addEventListener('change', () => {
     uploadModalOpen();
-    imgPreview.src = URL.createObjectURL(uploadFile.files[0]);
+    const imgUrl = URL.createObjectURL(uploadFile.files[0]);
+    imgPreview.src = imgUrl;
+    imgEffectPreview.forEach((item) => {
+      item.style.backgroundImage = `url(${imgUrl})`;
+    });
   });
 }
