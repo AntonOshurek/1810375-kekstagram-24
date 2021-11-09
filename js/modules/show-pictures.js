@@ -2,6 +2,11 @@ const pictureBlock = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture');
 
 export default function showPictures(posts) {
+  const pictureElem = document.querySelectorAll('.picture');
+  pictureElem.forEach((elem) => { //remowe old pictures elements
+    elem.remove();
+  });
+
   const fragment = new DocumentFragment();
 
   for(let i = 0; i < posts.length; i++) {
