@@ -696,6 +696,10 @@ main {
   border-radius: 5px;
 }
 
+.text__hashtags--error {
+  border: 2px solid red;
+}
+
 .text__description {
   width: 450px;
   height: 100px;
@@ -708,6 +712,10 @@ main {
   color: #000000;
 
   border-radius: 5px;
+}
+
+.text__description--error {
+  border: 2px solid red;
 }
 
 
