@@ -7,14 +7,16 @@ const MAX_HASH_ARRAY_LENGTH = 5;
 const textDescription = document.querySelector('.text__description');
 const textHashtags = document.querySelector('.text__hashtags');
 
-const commentReg = /[~`!@_()$%^&*+=\-[\]\\';,/{}|\\":<>?]/g;
+const commentReg = /[~`!@_()$%^&*+=\-[\]\\';,./{}|\\":<>?]/g;
 const hasDuplicates = (array) => (new Set(array)).size !== array.length;
 
 export const onCommentsCheckValidity = () => {
   if (!testStringLength(MAX_COMMENT_LENGTH, textDescription.value)) {
     textDescription.setCustomValidity('до 140 символов');
+    textDescription.classList.add('text__description--error');
   } else {
     textDescription.setCustomValidity('');
+    textDescription.classList.remove('text__description--error');
   }
   textDescription.reportValidity();
 };
@@ -52,10 +54,14 @@ export const onHashTagsCheckValidity = () => {
 
   if (!error) {
     textHashtags.setCustomValidity('');
+    textHashtags.classList.remove('text__hashtags--error');
   } else if (hashArray[0] === '') {
+    textHashtags.setCustomValidity('');
+    textHashtags.classList.remove('text__hashtags--error');
     textHashtags.value = textHashtags.value.trim();
   } else {
     textHashtags.setCustomValidity(error);
+    textHashtags.classList.add('text__hashtags--error');
   }
 
   textHashtags.reportValidity();
