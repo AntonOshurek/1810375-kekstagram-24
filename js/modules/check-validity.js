@@ -1,14 +1,12 @@
-import {testStringLength} from './test-string.js';
+import {testStringLength, checkDuplicates} from './utils.js';
 
 const MAX_COMMENT_LENGTH = 140;
 const MAX_HASH_LENGTH = 20;
 const MAX_HASH_ARRAY_LENGTH = 5;
+const HASH_TAG_REGEXP = /[~`!@_()$%^&*+=\-[\]\\';,./{}|\\":<>?]/g;
 
 const textDescription = document.querySelector('.text__description');
 const textHashtags = document.querySelector('.text__hashtags');
-
-const commentReg = /[~`!@_()$%^&*+=\-[\]\\';,./{}|\\":<>?]/g;
-const hasDuplicates = (array) => (new Set(array)).size !== array.length;
 
 export const onCommentsCheckValidity = () => {
   if (!testStringLength(MAX_COMMENT_LENGTH, textDescription.value)) {
@@ -35,7 +33,7 @@ export const onHashTagsCheckValidity = () => {
       error = 'хеш-тег не может состоять только из одной решётки';
     }
 
-    if(commentReg.test(hash)) {
+    if(HASH_TAG_REGEXP.test(hash)) {
       error = 'хештег не может содержать пробелы, спецсимволы (@, $ и т. п.)';
     }
 
@@ -43,7 +41,7 @@ export const onHashTagsCheckValidity = () => {
       error = 'не больше 20 символов';
     }
 
-    if(hasDuplicates(hashArray)) {
+    if(checkDuplicates(hashArray)) {
       error = 'хеш-теги не могут повторяться';
     }
 

@@ -1,6 +1,5 @@
 import showPictures from './show-pictures.js';
-import {getRandomInt} from './random.js';
-import {debounce} from '../utils/debounce.js';
+import {getRandomInt, checkDuplicates, debounce} from './utils.js';
 
 const RANDOM_DATA_LENGTH = 10;
 
@@ -10,9 +9,7 @@ export default function filterPictures(data) {
   const imgFiltersButtons = document.querySelectorAll('.img-filters__button');
   imgFiltersBlock.classList.remove('img-filters--inactive');
 
-  const hasDuplicates = (array) => (new Set(array)).size !== array.length;
-
-  const postsSort = (sortName) => {
+  const sortPosts = (sortName) => {
     if(sortName === 'filter-default') {
       showPictures(data);
     }
@@ -26,7 +23,7 @@ export default function filterPictures(data) {
       const randomData = [];
       for(let i = 0; i < RANDOM_DATA_LENGTH; i++) {
         randomData.push(data[getRandomInt(0, data.length - 1)]);
-        if(hasDuplicates(randomData)) {
+        if(checkDuplicates(randomData)) {
           randomData.pop();
           i--;
         }
@@ -43,7 +40,7 @@ export default function filterPictures(data) {
     if(evt.target.closest('.img-filters__button')) {
       evt.target.classList.add('img-filters__button--active');
       const sortName = evt.target.id;
-      postsSort(sortName);
+      sortPosts(sortName);
     }
   };
 

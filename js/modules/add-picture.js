@@ -1,23 +1,23 @@
 import {onCommentsCheckValidity, onHashTagsCheckValidity} from './check-validity.js';
 import {onImgScaleEffect, onImgEffects} from './photo-effects.js';
 import {sendData} from './api.js';
-import {dataPostSuccess, dataPostError, showLoadImgMessage, removeLoadImgMessage} from './utils.js';
+import {showPostSuccessModal, showPostErrorModal, showLoadImgMessage, removeLoadImgMessage} from './notification.js';
 
 export default function addPicture() {
   const body = document.querySelector('body');
   const uploadForm = document.querySelector('.img-upload__form');
   const uploadFile = uploadForm.querySelector('#upload-file');
-  const imageUpload = uploadForm.querySelector('.img-upload__overlay');
-  const imageUploadCancel = uploadForm.querySelector('.img-upload__cancel');
+  const imgUpload = uploadForm.querySelector('.img-upload__overlay');
+  const imgUploadCancel = uploadForm.querySelector('.img-upload__cancel');
   const textHashtags = uploadForm.querySelector('.text__hashtags');
   const textDescription = uploadForm.querySelector('.text__description');
   const imgPreview = uploadForm.querySelector('.img-upload__preview img');
   const imgEffectPreview = uploadForm.querySelectorAll('.effects__preview');
   //img scale
-  const scaleControls = document.querySelector('.img-upload__scale');
+  const scaleControlsBlock = document.querySelector('.img-upload__scale');
   const scaleInput = document.querySelector('.scale__control--value');
   //img effetcts
-  const imgEffects = document.querySelector('.img-upload__effects');
+  const imgEffectsBlock = document.querySelector('.img-upload__effects');
   const slider = document.querySelector('.effect-level__slider');
 
   const onUploadEscKeydown = (evt) => {
@@ -39,35 +39,35 @@ export default function addPicture() {
       .then((response) => {
         if (response.ok) {
           removeLoadImgMessage();
-          dataPostSuccess();
+          showPostSuccessModal();
           uploadModalClose();
         }
       }).catch(() => {
         removeLoadImgMessage();
-        dataPostError();
+        showPostErrorModal();
       });
   };
 
   function uploadModalOpen () {
-    imageUpload.classList.remove('hidden');
+    imgUpload.classList.remove('hidden');
     body.classList.add('modal-open');
     //close modal listeners
     document.addEventListener('keydown', onUploadEscKeydown);
-    imageUploadCancel.addEventListener('click', onCancelClick);
+    imgUploadCancel.addEventListener('click', onCancelClick);
     //description checked function
     textDescription.addEventListener('input', onCommentsCheckValidity);
     // # validity function
     textHashtags.addEventListener('input', onHashTagsCheckValidity);
     //scale effect
-    scaleControls.addEventListener('click', onImgScaleEffect);
+    scaleControlsBlock.addEventListener('click', onImgScaleEffect);
     //img effects
-    imgEffects.addEventListener('click', onImgEffects);
+    imgEffectsBlock.addEventListener('click', onImgEffects);
     //form upload listener
     uploadForm.addEventListener('submit', onFormSubmit);
   }
 
   function uploadModalClose () {
-    imageUpload.classList.add('hidden');
+    imgUpload.classList.add('hidden');
     body.classList.remove('modal-open');
     //form reset
     uploadForm.reset();
@@ -80,11 +80,11 @@ export default function addPicture() {
     slider.style.display = 'none';
     //listeners reset
     document.removeEventListener('keydown', onUploadEscKeydown);
-    imageUploadCancel.removeEventListener('click', onCancelClick);
+    imgUploadCancel.removeEventListener('click', onCancelClick);
     textDescription.removeEventListener('input', onCommentsCheckValidity);
     textHashtags.removeEventListener('input', onHashTagsCheckValidity);
-    scaleControls.removeEventListener('click', onImgScaleEffect);
-    imgEffects.removeEventListener('click', onImgEffects);
+    scaleControlsBlock.removeEventListener('click', onImgScaleEffect);
+    imgEffectsBlock.removeEventListener('click', onImgEffects);
     uploadForm.removeEventListener('submit', onFormSubmit);
   }
 
