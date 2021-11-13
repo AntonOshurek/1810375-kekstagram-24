@@ -38,46 +38,52 @@ const removeLoadImgMessage = () => {
 };
 
 //seccess modal
-const onSuccessEscKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    document.querySelector('.success').remove();
-  }
-};
-
-const onSuccessPopupClose = (evt) => {
-  if(!evt.target.closest('.success__inner') || evt.target.getAttribute('type') === 'button') {
-    document.querySelector('.success').remove();
-    document.removeEventListener('keydown', onSuccessEscKeydown);
-  }
-};
-
 const showPostSuccessModal = () => {
   const templateItem = seccessPopup.content.cloneNode(true);
   body.append(templateItem);
-  document.querySelector('.success').addEventListener('click', onSuccessPopupClose);
+  const successModal = document.querySelector('.success');
+
+  const onSuccessEscKeydown = (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      successModal.remove();
+      document.removeEventListener('keydown', onSuccessEscKeydown);
+    }
+  };
+
+  const onSuccessPopupClose = (evt) => {
+    if(!evt.target.closest('.success__inner') || evt.target.getAttribute('type') === 'button') {
+      successModal.remove();
+      document.removeEventListener('keydown', onSuccessEscKeydown);
+    }
+  };
+
+  successModal.addEventListener('click', onSuccessPopupClose);
   document.addEventListener('keydown', onSuccessEscKeydown);
 };
 
 //error modal
-const onErrorEscKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    document.querySelector('.error').remove();
-  }
-};
-
-const onErrorPopupClose = (evt) => {
-  if(!evt.target.closest('.error__inner') || evt.target.getAttribute('type') === 'button') {
-    document.querySelector('.error').remove();
-    document.removeEventListener('keydown', onErrorEscKeydown);
-  }
-};
-
 const showPostErrorModal = () => {
   const templateItem = errorPopup.content.cloneNode(true);
   body.append(templateItem);
-  document.querySelector('.error').addEventListener('click', onErrorPopupClose);
+  const errorModal = document.querySelector('.error');
+
+  const onErrorEscKeydown = (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      errorModal.remove();
+      document.removeEventListener('keydown', onErrorEscKeydown);
+    }
+  };
+
+  const onErrorPopupClose = (evt) => {
+    if(!evt.target.closest('.error__inner') || evt.target.getAttribute('type') === 'button') {
+      errorModal.remove();
+      document.removeEventListener('keydown', onErrorEscKeydown);
+    }
+  };
+
+  errorModal.addEventListener('click', onErrorPopupClose);
   document.addEventListener('keydown', onErrorEscKeydown);
 };
 

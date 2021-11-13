@@ -10,11 +10,7 @@ const effectLevelValue = document.querySelector('.effect-level__value');
 //PHOTO SCALE EFFECT
 const scalePhoto = (scaleValue) => {
   const scale = +scaleValue.replace(/\D+/, '');
-  if(scale >= MAX_SCALE_VALUE) {
-    image.style.transform = 'scale(1.0)';
-  } else {
-    image.style.transform = `scale(0.${scale})`;
-  }
+  scale >= MAX_SCALE_VALUE ? image.style.transform = 'scale(1.0)' : image.style.transform = `scale(0.${scale})`;
 };
 
 export const onImgScaleEffect = (evt) => {

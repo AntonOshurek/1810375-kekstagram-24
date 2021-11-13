@@ -21,10 +21,10 @@ export const onCommentsCheckValidity = () => {
 
 export const onHashTagsCheckValidity = () => {
   textHashtags.value = textHashtags.value.replace(/\s+/g, ' ');
-  const hashArray = textHashtags.value.toLowerCase().split(' ');
+  const hashes = textHashtags.value.toLowerCase().split(' ');
   let error = '';
 
-  hashArray.forEach((hash) => {
+  hashes.forEach((hash) => {
     if(!hash.startsWith('#')) {
       error = 'хеш-тег должен начинаться с решётки #';
     }
@@ -41,11 +41,11 @@ export const onHashTagsCheckValidity = () => {
       error = 'не больше 20 символов';
     }
 
-    if(checkDuplicates(hashArray)) {
+    if(checkDuplicates(hashes)) {
       error = 'хеш-теги не могут повторяться';
     }
 
-    if (hashArray.length > MAX_HASH_ARRAY_LENGTH) {
+    if (hashes.length > MAX_HASH_ARRAY_LENGTH) {
       error = 'не больше 5 тегов';
     }
   });
@@ -53,7 +53,7 @@ export const onHashTagsCheckValidity = () => {
   if (!error) {
     textHashtags.setCustomValidity('');
     textHashtags.classList.remove('text__hashtags--error');
-  } else if (hashArray[0] === '') {
+  } else if (hashes[0] === '') {
     textHashtags.setCustomValidity('');
     textHashtags.classList.remove('text__hashtags--error');
     textHashtags.value = textHashtags.value.trim();

@@ -1,7 +1,7 @@
 const pictureBlock = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture');
 
-export default function showPictures(posts) {
+export const showPictures = (posts) => {
   const pictureElem = document.querySelectorAll('.picture');
   pictureElem.forEach((elem) => { //remowe old pictures elements
     elem.remove();
@@ -21,4 +21,4 @@ export default function showPictures(posts) {
   }
 
   pictureBlock.append(fragment);
-}
+};
