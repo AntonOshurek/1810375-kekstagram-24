@@ -1,9 +1,9 @@
-import showPictures from './show-pictures.js';
+import {showPictures} from './show-pictures.js';
 import {getRandomInt, checkDuplicates, debounce} from './utils.js';
 
 const RANDOM_DATA_LENGTH = 10;
 
-export default function filterPictures(data) {
+export const filterPictures = (data) => {
   const imgFiltersBlock = document.querySelector('.img-filters');
   const imgFiltersForm = document.querySelector('.img-filters__form');
   const imgFiltersButtons = document.querySelectorAll('.img-filters__button');
@@ -45,4 +45,4 @@ export default function filterPictures(data) {
   };
 
   imgFiltersForm.addEventListener('click', debounce(onFiltersClick));
-}
+};

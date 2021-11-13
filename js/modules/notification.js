@@ -38,47 +38,49 @@ const removeLoadImgMessage = () => {
 };
 
 //seccess modal
-const onSuccessEscKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    document.querySelector('.success').remove();
-  }
-};
-
-const onSuccessPopupClose = (evt) => {
-  if(!evt.target.closest('.success__inner') || evt.target.getAttribute('type') === 'button') {
-    document.querySelector('.success').remove();
-    document.removeEventListener('keydown', onSuccessEscKeydown);
-  }
-};
-
 const showPostSuccessModal = () => {
   const templateItem = seccessPopup.content.cloneNode(true);
   body.append(templateItem);
-  document.querySelector('.success').addEventListener('click', onSuccessPopupClose);
-  document.addEventListener('keydown', onSuccessEscKeydown);
+  const successModal = document.querySelector('.success');
+
+  const onSuccessModalClose = (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      successModal.remove();
+    }
+
+    if(!evt.target.closest('.success__inner') || evt.target.getAttribute('type') === 'button') {
+      successModal.remove();
+    }
+
+    document.removeEventListener('keydown', onSuccessModalClose);
+  };
+
+  successModal.addEventListener('click', onSuccessModalClose);
+  document.addEventListener('keydown', onSuccessModalClose);
 };
 
 //error modal
-const onErrorEscKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    document.querySelector('.error').remove();
-  }
-};
-
-const onErrorPopupClose = (evt) => {
-  if(!evt.target.closest('.error__inner') || evt.target.getAttribute('type') === 'button') {
-    document.querySelector('.error').remove();
-    document.removeEventListener('keydown', onErrorEscKeydown);
-  }
-};
-
 const showPostErrorModal = () => {
   const templateItem = errorPopup.content.cloneNode(true);
   body.append(templateItem);
-  document.querySelector('.error').addEventListener('click', onErrorPopupClose);
-  document.addEventListener('keydown', onErrorEscKeydown);
+  const errorModal = document.querySelector('.error');
+
+  const onErrorModalClose = (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      errorModal.remove();
+    }
+
+    if(!evt.target.closest('.error__inner') || evt.target.getAttribute('type') === 'button') {
+      errorModal.remove();
+    }
+
+    document.removeEventListener('keydown', onErrorModalClose);
+  };
+
+  errorModal.addEventListener('click', onErrorModalClose);
+  document.addEventListener('keydown', onErrorModalClose);
 };
 
 export {showAlert, showPostSuccessModal, showPostErrorModal, showLoadImgMessage, removeLoadImgMessage};

@@ -7,7 +7,7 @@ export const getRandomInt = (minValue, maxValue) => {
 
 export const testStringLength = (max, string) => string.length <= max;
 
-export const checkDuplicates = (array) => (new Set(array)).size !== array.length;
+export const checkDuplicates = (data) => (new Set(data)).size !== data.length;
 
 export const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;

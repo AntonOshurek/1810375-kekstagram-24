@@ -1,6 +1,6 @@
 const NOTES_ON_PAGE = 5;
 
-export default function openFullScreenPost(posts) {
+export const openFullScreenPost = (posts) => {
   const picturesBlock = document.querySelector('.pictures');
   const bigPicture = document.querySelector('.big-picture');
   const body = document.querySelector('body');
@@ -106,4 +106,4 @@ export default function openFullScreenPost(posts) {
   }
 
   getCurrentPost();
-}
+};
