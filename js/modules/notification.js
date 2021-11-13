@@ -43,23 +43,21 @@ const showPostSuccessModal = () => {
   body.append(templateItem);
   const successModal = document.querySelector('.success');
 
-  const onSuccessEscKeydown = (evt) => {
+  const onSuccessModalClose = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       successModal.remove();
-      document.removeEventListener('keydown', onSuccessEscKeydown);
     }
-  };
 
-  const onSuccessPopupClose = (evt) => {
     if(!evt.target.closest('.success__inner') || evt.target.getAttribute('type') === 'button') {
       successModal.remove();
-      document.removeEventListener('keydown', onSuccessEscKeydown);
     }
+
+    document.removeEventListener('keydown', onSuccessModalClose);
   };
 
-  successModal.addEventListener('click', onSuccessPopupClose);
-  document.addEventListener('keydown', onSuccessEscKeydown);
+  successModal.addEventListener('click', onSuccessModalClose);
+  document.addEventListener('keydown', onSuccessModalClose);
 };
 
 //error modal
@@ -68,23 +66,21 @@ const showPostErrorModal = () => {
   body.append(templateItem);
   const errorModal = document.querySelector('.error');
 
-  const onErrorEscKeydown = (evt) => {
+  const onErrorModalClose = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       errorModal.remove();
-      document.removeEventListener('keydown', onErrorEscKeydown);
     }
-  };
 
-  const onErrorPopupClose = (evt) => {
     if(!evt.target.closest('.error__inner') || evt.target.getAttribute('type') === 'button') {
       errorModal.remove();
-      document.removeEventListener('keydown', onErrorEscKeydown);
     }
+
+    document.removeEventListener('keydown', onErrorModalClose);
   };
 
-  errorModal.addEventListener('click', onErrorPopupClose);
-  document.addEventListener('keydown', onErrorEscKeydown);
+  errorModal.addEventListener('click', onErrorModalClose);
+  document.addEventListener('keydown', onErrorModalClose);
 };
 
 export {showAlert, showPostSuccessModal, showPostErrorModal, showLoadImgMessage, removeLoadImgMessage};
